@@ -24,6 +24,7 @@ class AppWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(initializationProvider, (previous, next) {});
     return MaterialApp.router(
       title: 'Simple Floor Database',
       debugShowCheckedModeBanner: false,

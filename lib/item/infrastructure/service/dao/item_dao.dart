@@ -6,7 +6,7 @@ abstract class ItemDao {
   @Query('SELECT * FROM items')
   Future<List<ItemDto>> findAll();
 
-  @Query('SELECT * FROM items where item_id =:itemID')
+  @Query('SELECT * FROM items where itemID =:itemID')
   Future<ItemDto?> findByItemID(String itemID);
 
   @Insert(onConflict: OnConflictStrategy.replace)
@@ -14,4 +14,7 @@ abstract class ItemDao {
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<List<int>> insertMany(List<ItemDto> items);
+
+  @Query('Delete from items where itemID =:itemID')
+  Future<void> deleteItem(String itemID);
 }

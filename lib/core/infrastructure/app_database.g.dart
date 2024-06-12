@@ -151,7 +151,7 @@ class _$ItemDao extends ItemDao {
 
   @override
   Future<ItemDto?> findByItemID(String itemID) async {
-    return _queryAdapter.query('SELECT * FROM items where item_id =?1',
+    return _queryAdapter.query('SELECT * FROM items where itemID =?1',
         mapper: (Map<String, Object?> row) => ItemDto(
             itemID: row['itemID'] as String,
             itemName: row['itemName'] as String,
@@ -160,6 +160,12 @@ class _$ItemDao extends ItemDao {
             createdOn: row['createdOn'] as String,
             modifiedBy: row['modifiedBy'] as String,
             modifiedOn: row['modifiedOn'] as String),
+        arguments: [itemID]);
+  }
+
+  @override
+  Future<void> deleteItem(String itemID) async {
+    await _queryAdapter.queryNoReturn('Delete from items where itemID =?1',
         arguments: [itemID]);
   }
 

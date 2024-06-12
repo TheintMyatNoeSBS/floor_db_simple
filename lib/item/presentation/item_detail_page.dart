@@ -27,6 +27,7 @@ class _ItemDetailPageState extends ConsumerState<ItemDetailPage> {
   }
 
   Future<void> fetchItems() async {
+    items.clear();
     var itemData = await ref.watch(itemLocalServiceProvider).getAllItems();
     setState(() {
       items.addAll(itemData);
@@ -191,13 +192,23 @@ class _ItemDetailPageState extends ConsumerState<ItemDetailPage> {
                           Expanded(
                             child: Text(
                               items[index].itemName,
-                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                          const Expanded(
-                            child: Icon(
-                              Icons.delete_outlined,
-                              color: Colors.red,
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                ref
+                                    .watch(itemLocalServiceProvider)
+                                    .deleteItem(items[index].itemID);
+                                fetchItems();
+                              },
+                              child: const Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.delete_outlined,
+                                  color: Colors.red,
+                                ),
+                              ),
                             ),
                           ),
                         ],

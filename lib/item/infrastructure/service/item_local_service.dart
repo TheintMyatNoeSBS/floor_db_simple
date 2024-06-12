@@ -21,4 +21,8 @@ class ItemLocalService {
   Future<List<int>> addAll(List<ItemDto> items) async {
     return await _dao.insertMany(items);
   }
+
+  Future<void> deleteItem(String itemID) async {
+    return await _dao.deleteItem(itemID);
+  }
 }
